@@ -2,8 +2,8 @@ class PowerSource(object):
     def __init__(self, position, direction):
         """
 
-        :param model.grid.Direction direction:
-        :param model.grid.Position position:
+        :param logic.vector.Vector direction:
+        :param logic.vector.Vector position:
         """
         self.position = position
         self.direction = direction
@@ -16,6 +16,6 @@ class PowerSource(object):
         :return: the modified new Grid
         :rtype: model.grid.Grid
         """
-        pos = self.position + self.direction.delta
+        pos = self.position + self.direction
         new_grid.activate(pos)
         return new_grid

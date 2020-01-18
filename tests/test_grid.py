@@ -1,4 +1,5 @@
-from model.grid import Grid, Position, Direction
+from logic.vector import Vector
+from model.grid import Grid
 
 
 def test_empty_grid__has__x_y_dimensions():
@@ -13,21 +14,15 @@ def test_empty_grid__has__x_y_dimensions():
 def test_empty_grid__is__off():
     grid = Grid(2, 2)
 
-    assert grid.current_at(Position(0, 0)) == 0
-    assert grid.current_at(Position(0, 1)) == 0
-    assert grid.current_at(Position(1, 0)) == 0
-    assert grid.current_at(Position(1, 1)) == 0
+    assert grid.current_at(Vector(0, 0)) == 0
+    assert grid.current_at(Vector(0, 1)) == 0
+    assert grid.current_at(Vector(1, 0)) == 0
+    assert grid.current_at(Vector(1, 1)) == 0
 
 
 def test_pulse__activates__current_at_pulse_location():
     grid = Grid(3, 3)
 
-    grid.activate(Position(1, 1))
-    assert grid.current_at(Position(0, 0)) == 0
-    assert grid.current_at(Position(1, 1)) == 1
-
-
-def test_direction__is_determined__by_name():
-    up = Direction('up')
-    assert up.delta == Position(0, -1)
-
+    grid.activate(Vector(1, 1))
+    assert grid.current_at(Vector(0, 0)) == 0
+    assert grid.current_at(Vector(1, 1)) == 1
