@@ -1,21 +1,18 @@
+from typing import List
+
+from logic.signal import Signal
+
+
 class Grid(object):
     def __init__(self, width, height):
-        self.matrix = [[0] * height] * width
-        self.items = []
+        self.height = height
+        self.width = width
+        self.logic = []
+        self.signals: List[Signal] = []
 
-    def current_at(self, pos):
-        """
-        :param Position pos:
-        :return:
-        """
-        return self.matrix[pos.x][pos.y]
+    def add_logic_element(self, item):
+        self.logic.append(item)
 
-    def activate(self, position):
-        """
-        :param model.grid.Position position:
-        :return:
-        """
-        self.matrix[position.x][position.y] = 1
-
-    def put(self, item):
-        self.items.append(item)
+    def add_signal(self, signal: Signal):
+        if signal not in self.signals:
+            self.signals.append(signal)

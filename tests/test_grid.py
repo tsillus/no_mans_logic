@@ -1,28 +1,20 @@
+from logic.signal import Signal
 from logic.vector import Vector
 from model.grid import Grid
 
 
-def test_empty_grid__has__x_y_dimensions():
-    grid = Grid(3, 4)
+def test_add_signal_adds_a_signal_to_the_grid():
+    grid = Grid(10, 10)
+    grid.add_signal(Signal(True, Vector(2, 3)))
 
-    assert len(grid.matrix) == 3
-    assert len(grid.matrix[0]) == 4
-    assert len(grid.matrix[1]) == 4
-    assert len(grid.matrix[2]) == 4
+    assert Signal(True, Vector(2, 3)) in grid.signals
 
 
-def test_empty_grid__is__off():
-    grid = Grid(2, 2)
+def test_signal_is_only_add_once():
+    grid = Grid(10, 10)
+    grid.add_signal(Signal(True, Vector(2, 3)))
 
-    assert grid.current_at(Vector(0, 0)) == 0
-    assert grid.current_at(Vector(0, 1)) == 0
-    assert grid.current_at(Vector(1, 0)) == 0
-    assert grid.current_at(Vector(1, 1)) == 0
+    assert len(grid.signals) == 1
 
-
-def test_pulse__activates__current_at_pulse_location():
-    grid = Grid(3, 3)
-
-    grid.activate(Vector(1, 1))
-    assert grid.current_at(Vector(0, 0)) == 0
-    assert grid.current_at(Vector(1, 1)) == 1
+    grid.add_signal(Signal(True, Vector(2, 3)))
+    assert len(grid.signals) == 1
