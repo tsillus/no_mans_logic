@@ -1,3 +1,6 @@
+from math import sqrt
+
+
 class Vector(object):
     __slots__ = ['__x', '__y']
 
@@ -23,6 +26,10 @@ class Vector(object):
             return self
 
         return Vector(-self.y, self.x).rotate(steps - 1)
+
+    @property
+    def length(self) -> float:
+        return sqrt(self.x ** 2 + self.y ** 2)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
