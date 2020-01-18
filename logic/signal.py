@@ -1,4 +1,4 @@
-from logic.vector import Vector
+from model.vector import Vector
 
 
 class Signal(object):

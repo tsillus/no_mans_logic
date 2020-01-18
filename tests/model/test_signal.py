@@ -1,5 +1,5 @@
 from logic.signal import Signal
-from logic.vector import Vector
+from model.vector import Vector
 
 
 def test_two_signals_are_equal_when_their_currents_are_equal():

@@ -1,5 +1,5 @@
 from logic.signal import Signal
-from logic.vector import Vector
+from model.vector import Vector
 
 
 class Button(object):

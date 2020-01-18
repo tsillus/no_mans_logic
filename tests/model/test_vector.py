@@ -1,6 +1,6 @@
 import math
 
-from logic.vector import Vector
+from model.vector import Vector
 
 
 def test_vector_is_created_with_x_y_coordinates():

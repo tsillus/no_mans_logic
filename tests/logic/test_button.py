@@ -1,5 +1,5 @@
 from logic.button import Button
-from logic.vector import Vector
+from model.vector import Vector
 
 
 def test_button_is_not_pressed_by_default():

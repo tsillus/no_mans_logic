@@ -1,6 +1,6 @@
 from logic.signal import Signal
-from logic.vector import Vector, down
-from model.logic import PowerSource
+from model.vector import Vector, down
+from logic.power_source import PowerSource
 
 
 def test_power_source__activates__adjacent_grid_coordinate():
