@@ -5,7 +5,6 @@ from logic.vector import Vector
 class Button(object):
     def __init__(self, position: Vector, orientation: Vector):
         """
-
         :type position: Vector
         :type orientation: Vector
         """
