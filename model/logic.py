@@ -1,3 +1,6 @@
+from logic.signal import Signal
+
+
 class PowerSource(object):
     def __init__(self, position, direction):
         """
@@ -8,14 +11,9 @@ class PowerSource(object):
         self.position = position
         self.direction = direction
 
-    def visit(self, old_grid, new_grid):
+    def tick(self):
         """
-        :param model.grid.Grid old_grid:
-        :param model.grid.Grid new_grid:
-
-        :return: the modified new Grid
-        :rtype: model.grid.Grid
+        :return: the output Signal
+        :rtype: Signal
         """
-        pos = self.position + self.direction
-        new_grid.activate(pos)
-        return new_grid
+        return Signal(True, self.position + self.direction)
