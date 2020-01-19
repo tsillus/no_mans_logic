@@ -1,28 +1,24 @@
-from logic.signal import Signal
+from logic.gate import Gate
 from model.vector import Vector
 
 
-class Button(object):
-    def __init__(self, position: Vector, orientation: Vector):
-        """
-        :type position: Vector
-        :type orientation: Vector
-        """
-        self.orientation = orientation
-        self.position = position
-        self.pressed = False
-        self.output_signal = Signal(False, self.position + self.orientation)
+class Button(Gate):
 
-    @property
-    def output(self):
-        return self.output_signal
+    def __init__(self, position: Vector, direction: Vector):
+        super().__init__(position, direction)
+        self.is_open = False
+        self.pressed = 0
 
-    def tick(self, *args):
-        self.output_signal = Signal(self.pressed, self.position + self.orientation)
-        self.pressed = False
+    def tick(self, signals):
+        if self.pressed > 0:
+            self.pressed -= 1
+        self.is_open = self.pressed > 0
+        output = super(Button, self).tick(signals)
+
+        return output
 
     def press(self):
-        self.pressed = True
+        self.pressed = 2
 
     def move(self, new_position: Vector):
         self.position = new_position

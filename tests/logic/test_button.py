@@ -1,26 +1,55 @@
+import pytest
+
 from logic.button import Button
-from model.vector import Vector
+from logic.signal import Signal
+from model.vector import Vector, up, left, right
 
 
-def test_button_is_not_pressed_by_default():
-    button = Button(Vector(1, 1), Vector(1, 0))
-    assert not button.output
-    button.tick()
-    assert not button.output
+@pytest.fixture()
+def button():
+    return Button(Vector(0, 0), up)
 
 
-def test_press_activates_output_signal_after_update():
-    button = Button(Vector(1, 1), Vector(1, 0))
+def test_button_is_not_pressed_by_default(button):
+    assert not button.is_open
+    button.tick([])
+    assert not button.is_open
+
+
+def test_press_opens_the_gate_within_the_button_after_the_next_tick(button):
     button.press()
-    assert not button.output
-    button.tick()
-    assert button.output
+    assert not button.is_open
+    button.tick([])
+    assert button.is_open
 
 
-def test_rotate_turns_button_90_degrees_clockwise():
-    button = Button(Vector(1, 1), Vector(1, 0))
-    assert button.output.position == Vector(2, 1)
-    button.rotate()
-    assert button.output.position == Vector(2, 1)
-    button.tick()
-    assert button.output.position == Vector(1, 2)
+def test_pressed_button_closes_after_two_ticks(button):
+    button.press()
+    assert not button.is_open
+    button.tick([])
+    assert button.is_open
+    button.tick([])
+    assert not button.is_open
+
+
+input_signals = [
+    Signal(True, Vector(0, 0) + left),
+    Signal(True, Vector(0, 0) + right),
+]
+
+
+@pytest.mark.parametrize('input_signal', input_signals)
+def test_closed_button_blocks_input_signals(button, input_signal):
+    assert button.tick([input_signal]) == []
+
+
+signals = [
+    (Signal(True, Vector(0, 0) + right), Signal(True, Vector(0, 0) + left)),
+    (Signal(True, Vector(0, 0) + left), Signal(True, Vector(0, 0) + right)),
+]
+
+
+@pytest.mark.parametrize('input_signal, output_signal', signals)
+def test_open_button_put_input_signals_through(button, input_signal, output_signal):
+    button.press()
+    assert button.tick([input_signal]) == [output_signal]
