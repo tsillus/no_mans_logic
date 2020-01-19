@@ -2,7 +2,7 @@ from model.vector import Vector
 
 
 class Signal(object):
-    def __init__(self, current: bool, position: Vector):
+    def __init__(self, position: Vector, current: bool = True):
         self.position = position
         self.current = current
         self.sources = []
@@ -24,4 +24,4 @@ class Signal(object):
         return self.current == other.current and self.position == other.position
 
     def __or__(self, other):
-        return Signal(self.current or other.current, self.position)
+        return Signal(self.position, self.current or other.current)

@@ -33,8 +33,8 @@ def test_pressed_button_closes_after_two_ticks(button):
 
 
 input_signals = [
-    Signal(True, Vector(0, 0) + left),
-    Signal(True, Vector(0, 0) + right),
+    Signal(Vector(0, 0) + left),
+    Signal(Vector(0, 0) + right),
 ]
 
 
@@ -44,8 +44,8 @@ def test_closed_button_blocks_input_signals(button, input_signal):
 
 
 signals = [
-    (Signal(True, Vector(0, 0) + right), Signal(True, Vector(0, 0) + left)),
-    (Signal(True, Vector(0, 0) + left), Signal(True, Vector(0, 0) + right)),
+    (Signal(Vector(0, 0) + right), Signal(Vector(0, 0) + left, )),
+    (Signal(Vector(0, 0) + left), Signal(Vector(0, 0) + right, )),
 ]
 
 

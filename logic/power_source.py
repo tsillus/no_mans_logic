@@ -11,9 +11,9 @@ class PowerSource(object):
         self.position = position
         self.direction = direction
 
-    def tick(self):
+    def tick(self, *args):
         """
         :return: the output Signal
         :rtype: Signal
         """
-        return Signal(True, self.position + self.direction)
+        return Signal(self.position + self.direction)

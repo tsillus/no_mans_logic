@@ -1,10 +1,14 @@
 from logic.gate import Gate
 from logic.signal import Signal
+from model.vector import Vector
 
 
 class AutoSwitch(Gate):
+    def __init__(self, position: Vector, direction: Vector):
+        super().__init__(position, direction)
+        self.is_open = False
 
     def tick(self, signals):
         output = super(AutoSwitch, self).tick(signals)
-        self.is_open = Signal(True, self.position + self.direction) in signals
+        self.is_open = Signal(self.position + self.direction) in signals
         return output

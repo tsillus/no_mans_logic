@@ -8,10 +8,10 @@ class Wire:
         self.target = target
 
     def tick(self, signals):
-        if Signal(True, self.source) in signals:
-            return [Signal(True, self.target)]
+        if Signal(self.source) in signals:
+            return [Signal(self.target)]
 
-        if Signal(True, self.target) in signals:
-            return [Signal(True, self.source)]
+        if Signal(self.target) in signals:
+            return [Signal(self.source)]
 
         return []
