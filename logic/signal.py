@@ -21,7 +21,7 @@ class Signal(object):
         return self.current
 
     def __eq__(self, other):
-        return self.current == other.current
+        return self.current == other.current and self.position == other.position
 
     def __or__(self, other):
         return Signal(self.current or other.current, self.position)
