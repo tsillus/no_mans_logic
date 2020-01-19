@@ -37,5 +37,5 @@ def test_rotates_by_90_degress_steps_anticlockwise_for_negative_values():
     assert Vector(1, 0).rotate(-1) == Vector(0, -1)
 
 
-def test_vector_has_length(self):
+def test_vector_has_length():
     assert math.isclose(Vector(1, 1).length, math.sqrt(2))
