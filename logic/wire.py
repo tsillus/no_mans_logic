@@ -7,11 +7,11 @@ class Wire:
         self.source = source
         self.target = target
 
-    def tick(self, signal):
-        if signal.position == self.source:
-            return Signal(signal.current, self.target)
+    def tick(self, signals):
+        if Signal(True, self.source) in signals:
+            return [Signal(True, self.target)]
 
-        if signal.position == self.target:
-            return Signal(signal.current, self.source)
+        if Signal(True, self.target) in signals:
+            return [Signal(True, self.source)]
 
-        return signal
+        return []
