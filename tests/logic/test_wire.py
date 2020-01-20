@@ -10,21 +10,21 @@ def test_wire_has_two_coordinates():
     assert wire.source == Vector(0, 0)
 
 
-def test_wire_moves_signal_to_target_position():
+def test_wire_propagates_signal_to_target_position():
     wire = Wire(Vector(0, 0), Vector(2, 0))
 
     signal = wire.tick([Signal(Vector(0, 0))])
 
-    assert signal[0].current
+    assert signal[0].distance == 1
     assert signal[0].position == Vector(2, 0)
 
 
-def test_wire_moves_signal_to_source_position():
+def test_wire_propagates_signal_to_source_position():
     wire = Wire(Vector(0, 0), Vector(2, 0))
 
     signal = wire.tick([Signal(Vector(2, 0))])
 
-    assert signal[0].current
+    assert signal[0].distance == 1
     assert signal[0].position == Vector(0, 0)
 
 

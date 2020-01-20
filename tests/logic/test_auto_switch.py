@@ -40,5 +40,5 @@ def test_signal_on_control_input_opens_gate(auto_switch):
 
     auto_switch.update([Signal(position + up)])
 
-    assert auto_switch.tick([Signal(position + left)]) == [Signal(position + right)]
-    assert auto_switch.tick([Signal(position + right)]) == [Signal(position + left)]
+    assert auto_switch.tick([Signal(position + left, 0)]) == [Signal(position + right, 1)]
+    assert auto_switch.tick([Signal(position + right, 0)]) == [Signal(position + left, 1)]

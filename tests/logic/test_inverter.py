@@ -33,11 +33,8 @@ def test_inverter__opens__when__no_signal__is_at_the_control_input(inverter):
 
 def test_an_open_inverter_puts_a_signal_from_one_side_to_the_other(inverter):
     inverter.is_open = True
-    signal_left = Signal(inverter.position + left)
-    signal_right = Signal(inverter.position + right)
-
-    assert [signal_right] == inverter.tick([signal_left])
-    assert [signal_left] == inverter.tick([signal_right])
+    assert inverter.tick([Signal(inverter.position + left, 0)]) == [Signal(inverter.position + right, 1)]
+    assert inverter.tick([Signal(inverter.position + right, 0)]) == [Signal(inverter.position + left, 1)]
 
 
 def test_a_closed_inverter_returns_no_signal(inverter):
