@@ -8,10 +8,11 @@ class Wire:
         self.target = target
 
     def tick(self, signals):
-        if Signal(self.source) in signals:
-            return [Signal(self.target)]
+        result = []
+        for signal in signals:
+            if signal.is_located_at(self.source):
+                result.append(signal.propagate_to(self.target))
+            elif signal.is_located_at(self.target):
+                result.append((signal.propagate_to(self.source)))
 
-        if Signal(self.target) in signals:
-            return [Signal(self.source)]
-
-        return []
+        return result

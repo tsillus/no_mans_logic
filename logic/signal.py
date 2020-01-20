@@ -2,11 +2,16 @@ from model.vector import Vector
 
 
 class Signal(object):
-    def __init__(self, position: Vector, current: bool = True):
+    def __init__(self, position: Vector, current: bool = True, distance: int = 0):
         self.position = position
         self.current = current
-        self.sources = []
-        self.targets = []
+        self.distance = distance
+
+    def propagate_to(self, position: Vector):
+        return Signal(position, distance=self.distance + 1)
+
+    def is_located_at(self, position: Vector):
+        return self.position == position
 
     def on(self):
         self.current = True

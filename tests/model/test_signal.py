@@ -1,3 +1,5 @@
+import pytest
+
 from logic.signal import Signal
 from model.vector import Vector
 
@@ -23,3 +25,12 @@ def test_signal_can_be_toggled_on_and_off():
     assert signal == Signal(Vector(0, 0), True)
     signal.toggle()
     assert signal == Signal(Vector(0, 0), False)
+
+
+@pytest.mark.parametrize('before, after', [(0, 1), (1, 2), (10, 11)])
+def test_a_propagated_signal_has_distance_increased_by_1(before, after):
+    signal = Signal(Vector(0, 0), distance=before)
+
+    new_signal = signal.propagate_to(Vector(1, 0))
+
+    assert new_signal.distance == after
