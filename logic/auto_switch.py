@@ -8,7 +8,5 @@ class AutoSwitch(Gate):
         super().__init__(position, direction)
         self.is_open = False
 
-    def tick(self, signals):
-        output = super(AutoSwitch, self).tick(signals)
+    def update(self, signals):
         self.is_open = Signal(self.position + self.direction) in signals
-        return output

@@ -9,16 +9,13 @@ class Button(Gate):
         self.is_open = False
         self.pressed = 0
 
-    def tick(self, signals):
-        if self.pressed > 0:
-            self.pressed -= 1
-        self.is_open = self.pressed > 0
-        output = super(Button, self).tick(signals)
-
-        return output
+    def update(self, signals):
+        self.is_open = self.pressed
+        if self.pressed:
+            self.pressed = False
 
     def press(self):
-        self.pressed = 2
+        self.pressed = True
 
     def move(self, new_position: Vector):
         self.position = new_position

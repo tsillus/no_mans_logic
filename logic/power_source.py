@@ -17,3 +17,6 @@ class PowerSource(object):
         :rtype: Signal
         """
         return Signal(self.position + self.direction)
+
+    def update(self, signals):
+        pass

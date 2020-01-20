@@ -6,7 +6,5 @@ from logic.signal import Signal
 
 class Inverter(Gate):
 
-    def tick(self, signals: List[Signal]):
-        output = super(Inverter, self).tick(signals)
+    def update(self, signals: List[Signal]):
         self.is_open = not (Signal(self.position + self.direction) in signals)
-        return output

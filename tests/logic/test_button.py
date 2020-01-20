@@ -19,16 +19,16 @@ def test_button_is_not_pressed_by_default(button):
 def test_press_opens_the_gate_within_the_button_after_the_next_tick(button):
     button.press()
     assert not button.is_open
-    button.tick([])
+    button.update([])
     assert button.is_open
 
 
 def test_pressed_button_closes_after_two_ticks(button):
     button.press()
     assert not button.is_open
-    button.tick([])
+    button.update([])
     assert button.is_open
-    button.tick([])
+    button.update([])
     assert not button.is_open
 
 
@@ -52,4 +52,5 @@ signals = [
 @pytest.mark.parametrize('input_signal, output_signal', signals)
 def test_open_button_put_input_signals_through(button, input_signal, output_signal):
     button.press()
+    button.update([input_signal])
     assert button.tick([input_signal]) == [output_signal]

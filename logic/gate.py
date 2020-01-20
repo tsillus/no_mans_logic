@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import List
 
 from logic.signal import Signal
@@ -18,3 +18,7 @@ class Gate(ABC):
         if self.is_open:
             return self.gate.tick(signals)
         return []
+
+    @abstractmethod
+    def update(self, signals):
+        pass

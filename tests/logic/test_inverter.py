@@ -18,7 +18,7 @@ def test_wires_left_and_right_from_the_direction(inverter):
 def test_inverter__closes__when__a_signal__is_at_the_control_input(inverter):
     inverter.is_open = True
 
-    inverter.tick([Signal(inverter.position + up)])
+    inverter.update([Signal(inverter.position + up)])
 
     assert not inverter.is_open
 
@@ -26,7 +26,7 @@ def test_inverter__closes__when__a_signal__is_at_the_control_input(inverter):
 def test_inverter__opens__when__no_signal__is_at_the_control_input(inverter):
     inverter.is_open = False
 
-    inverter.tick([])
+    inverter.update([])
 
     assert inverter.is_open
 
