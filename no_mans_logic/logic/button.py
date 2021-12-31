@@ -1,5 +1,5 @@
-from logic.gate import Gate
-from model.vector import Vector
+from no_mans_logic.logic.gate import Gate
+from no_mans_logic.model.vector import Vector
 
 
 class Button(Gate):

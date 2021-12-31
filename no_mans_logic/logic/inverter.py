@@ -1,7 +1,7 @@
 from typing import List
 
-from logic.gate import Gate
-from logic.signal import Signal
+from no_mans_logic.logic.gate import Gate
+from no_mans_logic.logic.signal import Signal
 
 
 class Inverter(Gate):

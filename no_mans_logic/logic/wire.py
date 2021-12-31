@@ -1,5 +1,4 @@
-from logic.signal import Signal
-from model.vector import Vector
+from no_mans_logic.model.vector import Vector
 
 
 class Wire:

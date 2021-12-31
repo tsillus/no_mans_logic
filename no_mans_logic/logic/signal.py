@@ -1,5 +1,5 @@
 from __future__ import annotations
-from model.vector import Vector
+from no_mans_logic.model.vector import Vector
 
 
 class Signal(object):

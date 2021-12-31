@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from logic.signal import Signal
-from logic.wire import Wire
-from model.vector import Vector
+from no_mans_logic.logic.signal import Signal
+from no_mans_logic.logic.wire import Wire
+from no_mans_logic.model.vector import Vector
 
 
 class Gate(ABC):

@@ -1,4 +1,4 @@
-from logic.signal import Signal
+from no_mans_logic.logic.signal import Signal
 
 
 class PowerSource(object):

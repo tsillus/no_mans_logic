@@ -1,6 +1,6 @@
-from logic.signal import Signal
-from model.vector import Vector
-from logic.wire import Wire
+from no_mans_logic.logic.signal import Signal
+from no_mans_logic.logic.wire import Wire
+from no_mans_logic.model.vector import Vector
 
 
 def test_wire_has_two_coordinates():

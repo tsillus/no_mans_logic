@@ -1,7 +1,7 @@
 import pytest
 
-from logic.signal import Signal
-from model.vector import Vector
+from no_mans_logic.logic.signal import Signal
+from no_mans_logic.model.vector import Vector
 
 
 def test_two_signals_are_equal_when_their_currents_are_equal():

@@ -1,8 +1,8 @@
 import pytest
 
-from logic.inverter import Inverter
-from logic.signal import Signal
-from model.vector import Vector, up, left, right
+from no_mans_logic.logic.inverter import Inverter
+from no_mans_logic.logic.signal import Signal
+from no_mans_logic.model.vector import Vector, up, left, right
 
 
 @pytest.fixture()
