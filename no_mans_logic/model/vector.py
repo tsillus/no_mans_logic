@@ -1,10 +1,13 @@
 from math import sqrt
 
+import pygame
 
-class Vector(object):
+
+class Vector(pygame.Vector2):
     __slots__ = ['__x', '__y']
 
     def __init__(self, x, y):
+        super(Vector, self).__init__(x, y)
         self.__x = x
         self.__y = y
 
@@ -25,11 +28,17 @@ class Vector(object):
         if steps == 0:
             return self
 
-        return Vector(-self.y, self.x).rotate(steps - 1)
+        v = Vector(-self.y, self.x).rotate(steps - 1)
+        print(v)
+        return v
 
     @property
     def length(self) -> float:
         return sqrt(self.x ** 2 + self.y ** 2)
+
+    @property
+    def angle(self):
+        return up.angle_to(self)
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y

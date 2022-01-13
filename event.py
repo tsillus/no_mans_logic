@@ -6,6 +6,7 @@ import pygame.event
 
 class GameEvents:
     CREATE_LOGIC = pygame.event.custom_type()
+    ADD_LOGIC = pygame.event.custom_type()
     PLACE_LOGIC = pygame.event.custom_type()
     TICK = pygame.event.custom_type()
 
@@ -17,9 +18,12 @@ class EventFilter:
     events = event_handler.listen(*EventFilter.LEFT_CLICK)
     """
     LEFT_CLICK = (pygame.MOUSEBUTTONDOWN, {'button': lambda b: b == 1})
+    MIDDLE_CLICK = (pygame.MOUSEBUTTONDOWN, {'button': lambda b: b == 1})
+    RIGHT_CLICK = (pygame.MOUSEBUTTONDOWN, {'button': lambda b: b == 3})
 
 
 class EventHandler:
+    """Organizes a list of events so they can be accessed efficiently"""
     def __init__(self, events: List[pygame.event.Event]):
         self.events = events
         self.type = self.__by_event_type(events)
@@ -29,8 +33,8 @@ class EventHandler:
     def __by_key(self, events):
         key = {}
         for ev in events:
-            if hasattr(ev, 'key'):
-                char = chr(ev.key)
+            if hasattr(ev, 'key') and ev.key:
+                char = str(ev.key)
                 k = key.get(char, [])
                 k.append(ev)
                 key[char] = k
@@ -39,9 +43,9 @@ class EventHandler:
     def __by_event_type(self, events):
         ev_type = {}
         for ev in events:
-            event_list = ev_type.get(ev.type, [])
+            event_list = ev_type.get(str(ev.type), [])
             event_list.append(ev)
-            ev_type.update({ev.type: event_list})
+            ev_type.update({str(ev.type): event_list})
         return ev_type
 
     def __by_path(self, events):
@@ -54,9 +58,10 @@ class EventHandler:
         return routes
 
     def quit(self):
-        return pygame.QUIT in self.type
+        return str(pygame.QUIT) in self.type
 
     def listen(self, type, filter=None):
+        type = str(type)
         if filter is None:
             filter = {}
         result = []

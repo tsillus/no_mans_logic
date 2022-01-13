@@ -20,5 +20,5 @@ class Button(Gate):
     def move(self, new_position: Vector):
         self.position = new_position
 
-    def rotate(self):
-        self.orientation = self.orientation.rotate(1)
+    def rotate(self, n):
+        self.direction = self.direction.rotate(n)

@@ -19,6 +19,21 @@ class Gate(ABC):
             return self.gate.tick(signals)
         return []
 
+    @property
+    def pos(self):
+        """returns a pygame compatible (x, y) position"""
+        return (self.position.x, self.position.y)
+
+    @pos.setter
+    def pos(self, pos):
+        self.position = Vector(*pos)
+
     @abstractmethod
     def update(self, signals):
         pass
+
+    def press(self):
+        pass
+
+    def rotate(self, n):
+        self.direction = self.direction.rotate(n)
