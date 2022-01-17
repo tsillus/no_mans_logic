@@ -2,13 +2,19 @@ from typing import List
 
 import pygame
 import pygame.event
+from pygame.event import Event
+
+from actor import Actor
 
 
 class GameEvents:
     CREATE_LOGIC = pygame.event.custom_type()
     ADD_LOGIC = pygame.event.custom_type()
     PLACE_LOGIC = pygame.event.custom_type()
+    DELETE_LOGIC = pygame.event.custom_type()
     TICK = pygame.event.custom_type()
+    SIGNAL = pygame.event.custom_type()
+    CONTEXT = pygame.event.custom_type()
 
 
 class EventFilter:
@@ -22,8 +28,9 @@ class EventFilter:
     RIGHT_CLICK = (pygame.MOUSEBUTTONDOWN, {'button': lambda b: b == 3})
 
 
-class EventHandler:
+class OldEventHandler:
     """Organizes a list of events so they can be accessed efficiently"""
+
     def __init__(self, events: List[pygame.event.Event]):
         self.events = events
         self.type = self.__by_event_type(events)
@@ -77,12 +84,33 @@ class EventHandler:
         return True
 
 
-class EventFactory:
-    def __init__(self, event_type, route=''):
-        self.event_type = event_type
-        self.route = route
+class Mailbox:
+    def __init__(self):
+        self.__mailbox = {}
 
-    def create(self, **attributes):
-        if 'route' not in attributes:
-            attributes.update({'route': self.route})
-        return pygame.event.Event(self.event_type, attributes)
+    def flush_mailbox(self):
+        self.__mailbox = {}
+
+    def fill_mailbox(self, events: List[Event] = None):
+        if not events:
+            events = pygame.event.get()
+        for event in events:
+            address = 'global'
+            if hasattr(event, 'address'):
+                address = event.address
+            elif hasattr(event, 'receiver'):
+                address = event.receiver.uid
+            mailbox = self.__mailbox.get(address, [])
+            mailbox.append(event)
+            self.__mailbox[address] = mailbox
+
+    def get_mailbox(self, receiver: Actor) -> 'List[Event]':
+        return self.__mailbox.get(receiver.uid, [])
+
+    def get_global_mailbox(self):
+        return self.__mailbox.get('global', [])
+
+    @staticmethod
+    def send(event_type: int, sender: Actor, receiver: Actor, **attributes):
+        event = pygame.event.Event(event_type, sender=sender, receiver=receiver, **attributes)
+        pygame.event.post(event)
