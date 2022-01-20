@@ -57,17 +57,14 @@ class ContextButtonController(Actor):
         if self.view.is_clicked_on(*event.pos):
             ev = pygame.event.Event(GameEvents.CONTEXT, receiver=self.parent,
                                     action=self.model.action)
-
-            print(f'new event: Context . {self.model.action}')
             pygame.event.post(ev)
 
     def draw(self, screen: Surface):
         self.view.draw(screen)
 
     @property
-    def uid(self):
-        uid = super(ContextButtonController, self).uid
-        return f'{uid}/button/{id(self)}'
+    def _uid(self):
+        return f'button/{id(self)}'
 
 
 class ContextButtonFactory:

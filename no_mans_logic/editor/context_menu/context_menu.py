@@ -44,6 +44,5 @@ class ContextMenuController(Actor):
         attrs['receiver'] = self.parent
         attrs['sender'] = self
         ev = pygame.event.Event(event.type, **attrs)
-        print(f'delegating event with action={attrs["action"]}')
         pygame.event.post(ev)
         self.actors = {}

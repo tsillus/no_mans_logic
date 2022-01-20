@@ -16,7 +16,10 @@ def game():
 
 @pytest.fixture()
 def mailbox():
-    return Mailbox()
+    mb = Mailbox()
+    mb.fill_mailbox()
+    mb.flush_mailbox()
+    return mb
 
 
 @pytest.fixture(scope='session')

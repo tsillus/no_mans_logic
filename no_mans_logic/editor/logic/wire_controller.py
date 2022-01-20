@@ -69,6 +69,15 @@ class Wirecontroller(Actor):
             e = pygame.event.Event(GameEvents.DELETE_LOGIC, sender=self, receiver=self.parent)
             pygame.event.post(e)
 
+    @Actor.listen_to(GameEvents.TICK)
+    def on_tick(self, event):
+        if not self.placed_source or not self.placed_target:
+            return
+        signals = self.model.tick(event.signals)
+        if signals:
+            ev = pygame.event.Event(GameEvents.SIGNAL, signals=signals, receiver=self.parent)
+            pygame.event.post(ev)
+
     def hovers_wire(self, v: Vector):
         to_source = self.model.source - v
         to_target = v - self.model.target

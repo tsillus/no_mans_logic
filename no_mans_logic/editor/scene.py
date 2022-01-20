@@ -16,7 +16,6 @@ class Clock:
     def tick(self):
         now = datetime.now()
         if now - self.last_tick > self.interval:
-            print('tik tok')
             self.last_tick = now
             return True
         return False

@@ -12,7 +12,7 @@ class Gate(ABC):
     def __init__(self, position: Vector, direction: Vector, is_open=True):
         self.direction = direction
         self.position = position
-        self.gate = Wire(position + direction.rotate_90(3), position + direction.rotate_90(1))
+        # self.gate = Wire(position + (direction.rotate_90(3) * 30), position + (direction.rotate_90(1) * 30))
         self.is_open = is_open
 
     def tick(self, signals: List[Signal]) -> List[Signal]:
@@ -32,6 +32,11 @@ class Gate(ABC):
     @abstractmethod
     def update(self, signals):
         pass
+
+    @property
+    def gate(self):
+        return Wire(self.position + (self.direction.rotate_90(3) * 30),
+                    self.position + (self.direction.rotate_90(1) * 30))
 
     def press(self):
         pass

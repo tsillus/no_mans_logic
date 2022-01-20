@@ -44,8 +44,8 @@ def test_closed_button_blocks_input_signals(button, input_signal):
 
 
 signals = [
-    (Signal(Vector(0, 0) + right, 0), Signal(Vector(0, 0) + left, 1)),
-    (Signal(Vector(0, 0) + left, 0), Signal(Vector(0, 0) + right, 1)),
+    (Signal(Vector(0, 0) + (right * 30), 0), Signal(Vector(0, 0) + (left * 30), 1)),
+    (Signal(Vector(0, 0) + (left * 30), 0), Signal(Vector(0, 0) + (right * 30), 1)),
 ]
 
 

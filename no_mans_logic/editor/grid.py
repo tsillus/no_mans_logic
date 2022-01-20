@@ -61,7 +61,7 @@ class GridController(Actor):
             actor.draw(screen)
 
     def send_tick(self):
-        event = pygame.event.Event(GameEvents.TICK, signals=[*self.signals.values()])
+        event = pygame.event.Event(GameEvents.TICK, signals=[s for s in self.signals.values() if s.ttl > 0])
         pygame.event.post(event)
 
     @Actor.listen_to(GameEvents.CREATE_LOGIC)
@@ -75,14 +75,13 @@ class GridController(Actor):
 
     @Actor.listen_to(GameEvents.DELETE_LOGIC)
     def delete_logic(self, event):
-        print(f'deleting {event.sender} at {event.sender.uid}')
         del self.actors[event.sender.uid]
 
     @Actor.listen_to(GameEvents.SIGNAL)
     def on_signal(self, event):
-        print(f'Signal at {event.signal.uid}')
-        signal = self.signals.get(event.signal.uid, None)
-        if signal is None:
-            self.signals[event.signal.uid] = event.signal
-            return
-        self.signals.update({signal.uid: signal.update(event.signal)})
+        for event_signal in event.signals:
+            signal = self.signals.get(event_signal.uid, None)
+            if signal is None:
+                self.signals[event_signal.uid] = event_signal
+                return
+            self.signals.update({signal.uid: signal.update(event_signal)})

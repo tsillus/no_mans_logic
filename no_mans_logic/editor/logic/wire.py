@@ -16,5 +16,7 @@ class Wire:
             elif signal.is_located_at(self.target):
                 result.append((signal.propagate_to(self.source)))
 
-        return result
+        if len(result) <= 1:
+            return result
 
+        return [min(result)]

@@ -66,12 +66,11 @@ class LogicController(Actor):
     def on_tick(self, event):
         if not self.placed:
             return
-        signal = self.logic.tick(event.signals)
-        if signal:
-            ev = pygame.event.Event(GameEvents.SIGNAL, signal=signal, receiver=self.parent)
+        signals = self.logic.tick(event.signals)
+        if signals:
+            ev = pygame.event.Event(GameEvents.SIGNAL, signals=signals, receiver=self.parent)
             pygame.event.post(ev)
 
     @property
-    def uid(self):
-        uid = super(LogicController, self).uid
-        return f'{uid}/{id(self)}'
+    def _uid(self):
+        return f'logic/{id(self)}'

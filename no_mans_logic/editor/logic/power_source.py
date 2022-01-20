@@ -22,7 +22,7 @@ class PowerSource(object):
         :return: the output Signal
         :rtype: Signal
         """
-        return Signal(self.position + (self.direction * 30))
+        return [Signal(self.position + (self.direction * 30))]
 
     @property
     def pos(self):

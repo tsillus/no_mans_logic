@@ -20,9 +20,7 @@ class Output:
     def tick(self, signals: List[Signal]):
 
         for signal in signals:
-            print(f'distance to: {signal.position.distance_to(self.position + (self.direction * 30))}')
             if signal.is_located_at(self.position + (self.direction * 30)):
-                print('LIGHT!')
                 self.state = 1
                 break
         else:
